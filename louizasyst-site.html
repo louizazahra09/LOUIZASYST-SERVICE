@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Louizassyst Service - Services Administratifs & Gestion du Personnel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 25%, #90caf9 50%, #64b5f6 75%, #42a5f5 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #1976d2;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .company-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1565c0;
+            letter-spacing: 0.5px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .service-text {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #00acc1;
+            margin-top: -2px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1976d2;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(25, 118, 210, 0.9), rgba(66, 165, 245, 0.8), rgba(255, 255, 255, 0.9));
+            color: #1565c0;
+            padding: 150px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #1976d2;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1976d2, #42a5f5);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .service-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .service-list li {
+            padding: 0.3rem 0;
+            color: #555;
+        }
+
+        .service-list li::before {
+            content: '✓';
+            color: #1976d2;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        /* Competences Section */
+        .competences {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f3f9ff, #e1f5fe, rgba(255, 255, 255, 0.9));
+        }
+
+        .competences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .competence-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .competence-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, #1976d2, #42a5f5);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #1976d2, #42a5f5, rgba(255, 255, 255, 0.1));
+            color: white;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .contact-item span {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: white;
+            color: #1976d2;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #0d47a1, #1565c0);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .logo svg {
+                width: 50px;
+                height: 38px;
+            }
+            
+            .company-name {
+                font-size: 1.2rem;
+            }
+            
+            .service-text {
+                font-size: 0.7rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .competences-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">
+                <div class="logo-container">
+                    <svg width="60" height="45" viewBox="0 0 60 45" style="margin-right: 15px;">
+                        <defs>
+                            <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1565c0;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#1976d2;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#2196f3;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="accentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#00acc1;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#26c6da;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Forme principale arrondie comme l'image -->
+                        <rect x="5" y="5" width="35" height="35" rx="12" ry="12" 
+                              fill="url(#logoGradient)" stroke="#0d47a1" stroke-width="1"/>
+                        
+                        <!-- Centre de connexion (hub central) -->
+                        <circle cx="22.5" cy="22.5" r="4" fill="white"/>
+                        
+                        <!-- Points de connexion (5 points comme un réseau) -->
+                        <circle cx="12" cy="12" r="3" fill="white"/>
+                        <circle cx="33" cy="12" r="3" fill="white"/>
+                        <circle cx="12" cy="33" r="3" fill="white"/>
+                        <circle cx="33" cy="33" r="3" fill="white"/>
+                        <circle cx="22.5" cy="8" r="2.5" fill="white"/>
+                        
+                        <!-- Lignes de connexion (réseau) -->
+                        <line x1="22.5" y1="22.5" x2="12" y2="12" stroke="white" stroke-width="2" opacity="0.9"/>
+                        <line x1="22.5" y1="22.5" x2="33" y2="12" stroke="white" stroke-width="2" opacity="0.9"/>
+                        <line x1="22.5" y1="22.5" x2="12" y2="33" stroke="white" stroke-width="2" opacity="0.9"/>
+                        <line x1="22.5" y1="22.5" x2="33" y2="33" stroke="white" stroke-width="2" opacity="0.9"/>
+                        <line x1="22.5" y1="22.5" x2="22.5" y2="8" stroke="white" stroke-width="2" opacity="0.9"/>
+                        
+                        <!-- Petit accent turquoise comme sur l'image -->
+                        <rect x="42" y="30" width="12" height="12" rx="4" ry="4" 
+                              fill="url(#accentGradient)" stroke="#00838f" stroke-width="1"/>
+                        <circle cx="48" cy="36" r="2" fill="white"/>
+                    </svg>
+                    
+                    <div class="logo-text">
+                        <div class="company-name">LOUIZASYST</div>
+                        <div class="service-text">SERVICE</div>
+                    </div>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#competences">Compétences</a></li>
+                <li><a href="#about">À propos</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>LOUIZASYST SERVICE</h1>
+                <p>Services administratifs professionnels pour entreprises BTP<br>
+                Gestion du personnel • Documents de chantier • Administration</p>
+                <a href="#contact" class="cta-button">Demander un devis</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">
+                <svg width="40" height="30" viewBox="0 0 60 45" style="margin-right: 15px; vertical-align: middle;">
+                    <defs>
+                        <linearGradient id="titleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#1565c0;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#1976d2;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#2196f3;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="titleAccent" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00acc1;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#26c6da;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <rect x="5" y="5" width="30" height="30" rx="10" ry="10" fill="url(#titleGradient)"/>
+                    <circle cx="20" cy="20" r="3" fill="white"/>
+                    <circle cx="12" cy="12" r="2" fill="white"/>
+                    <circle cx="28" cy="12" r="2" fill="white"/>
+                    <circle cx="12" cy="28" r="2" fill="white"/>
+                    <circle cx="28" cy="28" r="2" fill="white"/>
+                    <line x1="20" y1="20" x2="12" y2="12" stroke="white" stroke-width="1.5"/>
+                    <line x1="20" y1="20" x2="28" y2="12" stroke="white" stroke-width="1.5"/>
+                    <line x1="20" y1="20" x2="12" y2="28" stroke="white" stroke-width="1.5"/>
+                    <line x1="20" y1="20" x2="28" y2="28" stroke="white" stroke-width="1.5"/>
+                    <rect x="37" y="25" width="8" height="8" rx="3" fill="url(#titleAccent)"/>
+                    <circle cx="41" cy="29" r="1.5" fill="white"/>
+                </svg>
+                Nos Services
+            </h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">👥</div>
+                    <h3>Gestion du Personnel</h3>
+                    <p>Services complets de gestion des ressources humaines</p>
+                    <ul class="service-list">
+                        <li>Pointage et suivi des heures</li>
+                        <li>Préparation des variables de paie</li>
+                        <li>Gestion des congés et arrêts de travail</li>
+                        <li>DPAE, APST, mutuelle</li>
+                        <li>Contrats de travail et avenants</li>
+                        <li>Recrutement et entretiens</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📋</div>
+                    <h3>Services Administratifs</h3>
+                    <p>Gestion administrative complète pour votre entreprise</p>
+                    <ul class="service-list">
+                        <li>Secrétariat et correspondance</li>
+                        <li>Gestion des factures et devis</li>
+                        <li>Suivi budgétaire et tableaux de bord</li>
+                        <li>Classification des documents</li>
+                        <li>Notes de frais et dépenses</li>
+                        <li>Organisation des réunions</li>
+                        <li>Montage de dossier Qualibat</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🏗️</div>
+                    <h3>Documents de Chantier BTP</h3>
+                    <p>Création et gestion de tous vos documents techniques</p>
+                    <ul class="service-list">
+                        <li>PPSPS (Plan de Prévention)</li>
+                        <li>Documents Uniques d'Évaluation</li>
+                        <li>DOE (Dossier des Ouvrages Exécutés)</li>
+                        <li>Dossiers techniques</li>
+                        <li>Demandes d'autorisation</li>
+                        <li>Suivi réglementaire</li>
+                    </ul>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>Préparation Comptable</h3>
+                    <p>Préparation et organisation de vos données comptables</p>
+                    <ul class="service-list">
+                        <li>Dossiers comptables complets</li>
+                        <li>Variables de paie pour comptable</li>
+                        <li>Suivi des dépenses</li>
+                        <li>Budgets prévisionnels</li>
+                        <li>Tableaux de bord financiers</li>
+                        <li>Optimisation des coûts</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competences Section -->
+    <section class="competences" id="competences">
+        <div class="container">
+            <h2 class="section-title">Mes Compétences</h2>
+            <div class="competences-grid">
+                <div class="competence-item">Leadership équipe</div>
+                <div class="competence-item">Gestion de projet</div>
+                <div class="competence-item">Analyse de données</div>
+                <div class="competence-item">Microsoft Office</div>
+                <div class="competence-item">Médiation en conflits</div>
+                <div class="competence-item">Rigueur administrative</div>
+                <div class="competence-item">Négociation</div>
+                <div class="competence-item">Gestion de personnel</div>
+                <div class="competence-item">Créativité et innovation</div>
+                <div class="competence-item">Aisance relationnelle</div>
+                <div class="competence-item">Prise de décision</div>
+                <div class="competence-item">Travail sous pression</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <h2 class="section-title">À Propos</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p><strong>Spécialisée BTP depuis 2016</strong> : je maîtrise vos contraintes spécifiques (PPSPS, DOE, sous-traitance, sécurité chantier). Confiez-moi votre gestion administrative, RH à la préparation des dossiers de chantier pendant que vous vous concentrez sur vos projets de construction.</p>
+                    
+                    <p><strong>Professionnelle expérimentée</strong> faisant preuve d'un esprit d'initiative et d'autonomie, capable de piloter des projets avec des équipes multidisciplinaires, de maîtriser les coûts et les délais.</p>
+                    
+                    <p>Dotée d'une <strong>solide expertise en négociation et en relation client</strong>, je sais apporter des solutions pertinentes et efficaces à vos besoins administratifs et de gestion.</p>
+                    
+                    <p>Forte d'un <strong>Doctorat en Sciences Humaines et Sociales</strong> et d'un Master en Sociologie des organisations et gestion des ressources humaines, j'accompagne les entreprises BTP dans leur développement administratif.</p>
+                </div>
+                
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">9+</span>
+                        Années d'expérience BTP
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100+</span>
+                        Projets réalisés
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">3</span>
+                        Langues parlées
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        Disponibilité
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contactez-moi</h3>
+                    <div class="contact-item">
+                        <span>📧</span>
+                        <div>
+                            <strong>Email:</strong><br>
+                            louizaservices3@gmail.com
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span>📱</span>
+                        <div>
+                            <strong>Téléphone:</strong><br>
+                            06 85 99 30 49<br>
+                            <em style="color: #26c6da; font-size: 0.9rem;">📲 Disponible sur WhatsApp</em>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <span>📍</span>
+                        <div>
+                            <strong>Adresse:</strong><br>
+                            09 avenue du 25 août 1944
+                            94600 Choisy-le-Roi
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Demande de devis</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="nom">Nom complet</label>
+                            <input type="text" id="nom" name="nom" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="entreprise">Entreprise</label>
+                            <input type="text" id="entreprise" name="entreprise">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service souhaité</label>
+                            <select id="service" name="service" style="width: 100%; padding: 12px; border: none; border-radius: 8px; background: rgba(255,255,255,0.9); font-size: 1rem;">
+                                <option value="">Sélectionner un service</option>
+                                <option value="gestion-personnel">Gestion du Personnel</option>
+                                <option value="administratif">Services Administratifs</option>
+                                <option value="documents-btp">Documents de Chantier BTP</option>
+                                <option value="comptable">Préparation Comptable</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Décrivez vos besoins..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Envoyer la demande</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 LOUIZASYST SERVICE - SIRET : 91200869500013 - Tous droits réservés | Services administratifs professionnels</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form handling
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Merci pour votre demande ! Je vous recontacterai rapidement.');
+        });
+
+        // Parallax effect for hero
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe service cards
+        document.querySelectorAll('.service-card, .competence-item').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
